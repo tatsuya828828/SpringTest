@@ -17,8 +17,8 @@ public class HeroRepository {
 	private JdbcTemplate jdbcTemplate;
 	public Map<String, Object> findOne(int id){
 		// SELECT文
-		String query = "SELECT "+"hero_id, "+"hero_name, "+"age "+"FROM hero "+"WHERE hero_id=?";
-		// 検索実行
+		String query = "SELECT "+"hero_id, "+"hero_name, "+"name, "+"age "+"FROM hero "+"WHERE hero_id=?";
+		// 検索実行してMapに情報を格納
 		Map<String, Object> hero = jdbcTemplate.queryForMap(query, id);
 
 		return hero;

@@ -11,5 +11,6 @@ import lombok.Data;
 public class Hero {
 	private int heroId;
 	private String heroName;
+	private String name;
 	private int age;
 }
