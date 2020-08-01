@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>ResponseSample</title>
+	</head>
+	<body>
+		<h1>HelloResponse</h1>
+		<!-- コントローラーを通して受け取った文字を表示
+			th:text属性に、modeladdAttributeで登録したキーを指定することで、コントローラークラスからの値を受け取ることができる
+			なお、キー名を指定する場合は、${キー名}と入力する -->
+		<p><span th:text="${like}"></span>が好きな<span th:text="${name}"></span>さんこんにちは</p>
+	</body>
+</html>

@@ -8,6 +8,16 @@
 	</head>
 	<body>
 		<h1>Hello World</h1>
-		<p>Spring Testのサンプルページ</p>
+		<form method="post" action="/hello">
+			名前を入力してください:
+			<!-- th:value属性を使うことで、画面からコントローラークラスに値を渡すことができる
+				ちなみに、th:とつく属性はタイムリーフの属性である
+				inputタグにはvalue属性が元々存在する、その属性にth:つけると、タイムリーフの属性であると宣言している
+				今回の場合はname属性の値のtext1をコントローラーに渡す -->
+			<input type="text" name="text1" th:value="${text1_value}">
+			好きなものを入力してください:
+			<input type="text" name="text2" th:value="${text2_value}">
+			<input type="submit" value="クリック">
+		</form>
 	</body>
 </html>
