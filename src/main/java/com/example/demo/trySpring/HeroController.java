@@ -26,6 +26,6 @@ public class HeroController {
 		model.addAttribute("name", hero.getName());
 		model.addAttribute("age", hero.getAge());
 		// heroResponseDb.htmlに画面遷移
-		return "heroResponceDB";
+		return "heroResponseDb";
 	}
 }
