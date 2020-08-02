@@ -22,7 +22,7 @@ public class SignupController {
 		Map<String, String> radio = new LinkedHashMap<>();
 		// 既婚・未婚をMapに格納
 		radio.put("男性", "true");
-		radio.put("未婚", "false");
+		radio.put("女性", "false");
 
 		return radio;
 	}
