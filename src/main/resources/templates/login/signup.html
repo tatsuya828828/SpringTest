@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<!-- Bootstrapの設定 -->
+		<link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" rel="stylesheet">
+		<script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+		<script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+		<title>SignUp</title>
+	</head>
+	<body>
+		<div class="col-sm-5">
+			<div class="page-header">
+				<h1>登録画面</h1>
+			</div>
+			<!-- th:action="@{遷移先のURL}といった形でリクエスト先のURLを指定しているのは、タイムリーフを使った書き方
+				Springセキュリティを使わない場合は、action属性で指定しても問題ないが、
+				Springセキュリティを使う場合は、formタグ内にはth:action属性を使うようにする必要がある -->
+			<form method="post" th:action="@{/signup}">
+				<table class="table table-bordered table-hover">
+					<!-- IDの入力エリア -->
+					<tr>
+						<th class="acrive col-sm-3">ヒーローID</th>
+						<td>
+							<div class="form-group">
+								<input type="text" class="form-control">
+							</div>
+						</td>
+					</tr>
+					<!--  パスワード -->
+					<tr>
+						<th class="active">パスワード</th>
+						<td>
+							<div class="form-group">
+								<input type="text" class="form-control">
+							</div>
+						</td>
+					</tr>
+					<!-- ヒーロー名 -->
+					<tr>
+						<th class="active">ヒーロー名</th>
+						<td>
+							<div class="form-group">
+								<input type="text" class="form-control">
+							</div>
+						</td>
+					</tr>
+					<!-- 名前 -->
+					<tr>
+						<th class="active">名前</th>
+						<td>
+							<div class="form-group">
+								<input type="text" class="form-control">
+							</div>
+						</td>
+					</tr>
+					<!-- 誕生日 -->
+					<tr>
+						<th class="active">誕生日</th>
+						<td>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="yyyy/MM/dd">
+							</div>
+						</td>
+					</tr>
+					<!-- 年齢 -->
+					<tr>
+						<th class="active">年齢</th>
+						<td>
+							<div class="form-group">
+								<input type="text" class="form-control">
+							</div>
+						</td>
+					</tr>
+					<!-- 性別 -->
+					<tr>
+						<th class="active">性別</th>
+						<td>
+							<div class="form-group">
+								<!-- th:each属性を使うと、Modelに登録されている値が繰り返し呼び出される
+									また、th:eachがつけられたタグ内では、Modelに登録されている値を変数名で簡単に取得できる
+									指定方法は、th:each="変数名: ${ModelAttributeのキー名}"といった形式で指定する
+									今回の場合であれば、th:each属性がついているdivタグの中で、itemという変数を使うことができる
+									itemは変数名であり、中身はSignupControllerクラスで取得したMapが入っている -->
+								<div th:each="item: ${radioMarriage}">
+									<!-- th:textには、画面に表示される文字列を指定する
+										今回の場合であれば、Mapクラスのkeyの値(男性・女性)を画面に表示
+										th:valueには、画面からControllerクラスに送る値を指定する
+										今回の場合では、Mapクラスのvalue（true、false)を送る -->
+									<input type="radio" name="radioGender" th:text="${item.key}" th:value="${item.value}">
+								</div>
+							</div>
+						</td>
+					</tr>
+				</table>
+				<!-- 登録ボタン -->
+				<button class="btn btn-primary" type="submit">登録</button>
+			</form>
+		</div>
+	</body>
+</html>
