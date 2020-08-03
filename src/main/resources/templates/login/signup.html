@@ -26,8 +26,9 @@
 					<tr>
 						<th class="active col-sm-3">ヒーローID</th>
 						<td>
-							<div class="form-group">
+							<div class="form-group" th:classappend="${#fields.hasErrors('heroId')}?'has-error'">
 								<input type="text" class="form-control" th:field="*{heroId}">
+								<span class="text-danger" th:if="${#fields.hasErrors('heroId')}" th:errors="*{heroId}">heroId error</span>
 							</div>
 						</td>
 					</tr>
@@ -35,8 +36,9 @@
 					<tr>
 						<th class="active">パスワード</th>
 						<td>
-							<div class="form-group">
+							<div class="form-group" th:classappend="${#fields.hasErrors('password')}?'has-error'">
 								<input type="text" class="form-control" th:field="*{password}">
+								<span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</span>
 							</div>
 						</td>
 					</tr>
@@ -44,8 +46,9 @@
 					<tr>
 						<th class="active">ヒーロー名</th>
 						<td>
-							<div class="form-group">
+							<div class="form-group" th:classappend="${#fields.hasErrors('heroName')}?'has-error'">
 								<input type="text" class="form-control" th:field="*{heroName}">
+								<span class="text-danger" th:if="${#fields.hasErrors('heroName')}" th:errors="*{heroName}">heroName error</span>
 							</div>
 						</td>
 					</tr>
@@ -53,8 +56,9 @@
 					<tr>
 						<th class="active">名前</th>
 						<td>
-							<div class="form-group">
+							<div class="form-group" th:classappend="${#fields.hasErrors('name')}?'has-error'">
 								<input type="text" class="form-control" th:field="*{name}">
+								<span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name error</span>
 							</div>
 						</td>
 					</tr>
@@ -62,8 +66,9 @@
 					<tr>
 						<th class="active">誕生日</th>
 						<td>
-							<div class="form-group">
+							<div class="form-group" th:classappend="${#fields.hasErrors('birthday')}?'has-error'">
 								<input type="text" class="form-control" placeholder="yyyy/MM/dd" th:field="*{birthday}">
+								<span class="text-danger" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">birthday error</span>
 							</div>
 						</td>
 					</tr>
@@ -71,8 +76,9 @@
 					<tr>
 						<th class="active">年齢</th>
 						<td>
-							<div class="form-group">
+							<div class="form-group" th:classappend="${#fields.hasErrors('age')}?'has-error'">
 								<input type="text" class="form-control" th:field="*{age}">
+								<span class="text-danger" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">age error</span>
 							</div>
 						</td>
 					</tr>
@@ -97,12 +103,6 @@
 						</td>
 					</tr>
 				</table>
-				<!-- エラーメッセージ の一覧表示をするためには、th:each属性を使う -->
-				<ul>
-					<li th:each="error: ${#fields.detailedErrors()}">
-						<span th:text="${error.message}">Error message</span>
-					</li>
-				</ul>
 				<!-- 登録ボタン -->
 				<button class="btn btn-primary" type="submit">新規登録</button>
 			</form>
