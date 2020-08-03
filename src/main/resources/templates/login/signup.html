@@ -26,8 +26,14 @@
 					<tr>
 						<th class="active col-sm-3">ヒーローID</th>
 						<td>
+							<!-- エラー時にCSSのクラスを追加したい場合は、th:classappend属性を使って値にhas-errorを追加する
+								has-errorはBootstrapのclassで、問題があるテキストボックスの枠を赤くしてくれる
+								内容は、まずhas-errorの部分で、trueかfalseかを判定しtrueの場合、has-errorというclassを追加する(falseの場合は何もしない) -->
 							<div class="form-group" th:classappend="${#fields.hasErrors('heroId')}?'has-error'">
 								<input type="text" class="form-control" th:field="*{heroId}">
+								<!-- 個別にエラーメッセージを表示したい場合、th:if属性を使う
+									th:if属性には、条件式を設定する、そしてtrueの場合のみそのタグが表示される
+									th:if属性では、フィールドのバリデーションでエラーがあるとtrueを返して、各フィールドのエラーメッセージ を表示している -->
 								<span class="text-danger" th:if="${#fields.hasErrors('heroId')}" th:errors="*{heroId}">heroId error</span>
 							</div>
 						</td>
