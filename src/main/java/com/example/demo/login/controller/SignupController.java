@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.login.domain.model.GroupOrder;
 import com.example.demo.login.domain.model.SignupForm;
 
 @Controller
@@ -51,7 +52,10 @@ public class SignupController {
 	@PostMapping("/signup")
 	// データバインドの結果を受け取るためには、メソッドの引数にBindingResultクラスを追加する
 	// また、このクラスのhasErrors()メソッドで、データバインドに失敗しているかどうかがわかる
-	public String postSignUp(@ModelAttribute @Validated SignupForm form, BindingResult bindingResult, Model model) {
+
+	// @Validatedアノテーションのパラメータに実行順序のインタフェースを指定することで、バリデーションがグループ実行される
+	// また、実行順序のインタフェースでなく、グループのインタフェース(今回であればValidGroup1など)を直接指定することもできる
+	public String postSignUp(@ModelAttribute @Validated(GroupOrder.class) SignupForm form, BindingResult bindingResult, Model model) {
 		// 入力チェックに引っかかった場合、新規登録画面へ戻る
 		// データバインドに失敗した場合、BindingResultのhasErrorsメソッドでfalseが返ってくる
 		// 今回の場合はデータバインドに失敗した場合、ラジオボタン用の変数を初期化したいためユーザー登録画面に戻す
