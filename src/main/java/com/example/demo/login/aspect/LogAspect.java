@@ -18,14 +18,14 @@ public class LogAspect {
 	 * excutionの指定方法は
 	 * "excution(戻り値 パッケージ名.クラス名.メソッド名(引数)"といった形式で指定する
 	 * なお、パッケージ名やクラス名などには正規表現が使える
-	 * 今回は、LoginControllerクラスのgetLoginメソッドをPointCut(実行場所)にしている
+	 * 正規表現を使うことで、コントローラークラスの全てのメソッドを指定することも簡潔に表せる
 	 */
-	@Before("execution( * com.example.demo.login.controller.LoginController.getLogin(..))")
+	@Before("execution(* *..*.*Controller.*(..))")
 	public void startLog(JoinPoint jp) {
 		System.out.println("メソッド開始:"+ jp.getSignature());
 	}
 
-	@After("execution( * com.example.demo.login.controller.LoginController.getLogin(..))")
+	@After("execution(* *..*.*Controller.*(..))")
 	public void endLog(JoinPoint jp) {
 		System.out.println("メソッド終了:"+ jp.getSignature());
 	}
