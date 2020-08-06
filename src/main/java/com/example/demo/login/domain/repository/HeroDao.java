@@ -13,22 +13,22 @@ public interface HeroDao {
 	// Springでは、データベース操作で例外が発生した場合、Springが提供しているDataAccessExceptionを投げる
 	// この例外クラスは、SpringJDBCだけでなく、Spring+MyBatisを使ったときにも投げられる
 
-	// Userテーブルの件数を取得
+	// Heroテーブルの件数を取得
 	public int count() throws DataAccessException;
 
-	// Userテーブルにデータを1件insert
+	// Heroテーブルにデータを1件insert
 	public int insertOne(Hero hero) throws DataAccessException;
 
-	// Userテーブルのデータを1件取得
+	// Heroテーブルのデータを1件取得
 	public Hero selectOne(String userId) throws DataAccessException;
 
-	// Userテーブルの全データを取得
+	// Heroテーブルの全データを取得
 	public List<Hero> selectMany() throws DataAccessException;
 
-	// Userテーブルを1件更新
+	// Heroテーブルを1件更新
 	public int updateOne(Hero hero) throws DataAccessException;
 
-	// Userテーブルを1件削除
+	// Heroテーブルを1件削除
 	public int deleteOne(String userId) throws DataAccessException;
 
 	// SQL取得結果をサーバーにCSVで保存する
