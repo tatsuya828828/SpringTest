@@ -3,6 +3,7 @@ package com.example.demo.login.controller;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,10 +13,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.login.domain.model.GroupOrder;
+import com.example.demo.login.domain.model.Hero;
 import com.example.demo.login.domain.model.SignupForm;
+import com.example.demo.login.domain.service.HeroService;
 
 @Controller
 public class SignupController {
+	@Autowired
+	private HeroService heroService;
 	// ラジオボタンの実装
 	// タイムリーフでラジオボタンの値を動的に変更するためには、Mapを用意する
 	// そのMapに入ったキーと値を画面に表示することができる
@@ -65,6 +70,31 @@ public class SignupController {
 		}
 		// formの中身をコンソールに出して確認する
 		System.out.println(form);
+
+		// insert用変換
+		// サービスクラスに渡すHeroクラスをnewする
+		Hero hero = new Hero();
+		// Heroクラスに画面から入力された値をセットしていく
+		hero.setHeroId(form.getHeroId());
+		hero.setPassword(form.getPassword());
+		hero.setHeroName(form.getHeroName());
+		hero.setName(form.getName());
+		hero.setBirthday(form.getBirthday());
+		hero.setAge(form.getAge());
+		hero.setGender(form.isGender());
+		hero.setRole("ROLE_GENERAL"); // 一般ユーザー
+
+		// ヒーロー登録処理
+		// サービスクラスのinsertを呼び出して変換
+		boolean result = heroService.insert(hero);
+
+		// ヒーロー登録結果の判定
+		if(result == true) {
+			System.out.println("insert成功");
+		} else {
+			System.out.println("insert失敗");
+		}
+
 		// login.htmlにリダイレクト
 		// リダイレクトする場合は、メソッドの返却値にredirect:遷移先のパスと指定する
 		// リダイレクトすると、遷移先のControllerクラスのメソッドが呼ばれる
