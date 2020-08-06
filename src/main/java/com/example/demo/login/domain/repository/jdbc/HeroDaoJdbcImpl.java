@@ -31,7 +31,7 @@ public class HeroDaoJdbcImpl implements HeroDao {
 	public int insertOne(Hero hero) throws DataAccessException {
 		// DBにデータを1件登録
 		int rowNumber = jdbc.update("INSERT INTO m_hero(hero_id, "+"password, "+"hero_name, "+"name, "+"birthday, "
-									+"age, "+"gender, "+"role)"+" VALUES(?,?,?,?,?,?,?)"
+									+"age, "+"gender, "+"role)"+" VALUES(?,?,?,?,?,?,?,?)"
 									, hero.getHeroId(), hero.getPassword(), hero.getHeroName(), hero.getName()
 									, hero.getBirthday(), hero.getAge(), hero.isGender(), hero.getRole());
 		return rowNumber;
