@@ -9,11 +9,12 @@ import lombok.Data;
 // @Dataアノテーションをつけて、Lombokでgetterやsetterを自動で作る
 @Data
 public class Hero {
-	private String userId;
+	private String heroId;
 	private String password;
-	private String userName;
+	private String heroName;
+	private String name;
 	private Date birthday;
 	private int age;
-	private boolean marriage;
+	private boolean gender;
 	private String role;
 }
