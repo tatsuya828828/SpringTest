@@ -33,6 +33,12 @@ public class HeroService {
 		return dao.count();
 	}
 
+	// 1件取得用メソッド
+	public Hero selectOne(String heroId) {
+		// selectOne実行
+		return dao.selectOne(heroId);
+	}
+
 	// 全権取得用メソッド
 	public List<Hero> selectMany() {
 		return dao.selectMany();
