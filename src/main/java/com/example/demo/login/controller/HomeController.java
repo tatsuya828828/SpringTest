@@ -92,6 +92,31 @@ public class HomeController {
 		return "login/homeLayout";
 	}
 
+	// ヒーロー更新用処理
+	@PostMapping(value = "/heroDetail", params = "update")
+	public String postHeroDetailUpdate(@ModelAttribute SignupForm form, Model model) {
+		System.out.println("更新ボタンの処理");
+		// Heroインスタンスの生成
+		Hero hero = new Hero();
+		// フォームクラスをHeroクラスに変換
+		hero.setHeroId(form.getHeroId());
+		hero.setPassword(form.getPassword());
+		hero.setHeroName(form.getHeroName());
+		hero.setName(form.getName());
+		hero.setBirthday(form.getBirthday());
+		hero.setAge(form.getAge());
+		hero.setGender(form.isGender());
+		// 更新実行
+		boolean result = heroService.updateOne(hero);
+		if(result == true) {
+			model.addAttribute("result", "更新成功");
+		} else {
+			model.addAttribute("result", "更新失敗");
+		}
+		// ヒーロー一覧画面を表示
+		return getHeroList(model);
+	}
+
 	// ログアウト用メソッド
 	@PostMapping("/logout")
 	public String postLogout() {

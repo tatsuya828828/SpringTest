@@ -43,4 +43,17 @@ public class HeroService {
 	public List<Hero> selectMany() {
 		return dao.selectMany();
 	}
+
+	// 1件更新メソッド
+	public boolean updateOne(Hero hero) {
+		// 1件更新
+		int rowNumber = dao.updateOne(hero);
+		// 判定用変数
+		boolean result = false;
+		if(rowNumber>0) {
+			// update成功
+			result = true;
+		}
+		return result;
+	}
 }

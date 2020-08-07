@@ -102,7 +102,12 @@ public class HeroDaoJdbcImpl implements HeroDao {
 	// Heroテーブルのデータを1件更新
 	@Override
 	public int updateOne(Hero hero) throws DataAccessException {
-		return 0;
+		// 1件更新
+		int rowNumber = jdbc.update("UPDATE M_HERO"+" SET"+" password=?, "+"hero_name=?, "+"name=?, "+"birthday=?, "
+									+"age=?, "+"gender=? "+"WHERE hero_id=?",
+									hero.getPassword(), hero.getHeroName(), hero.getName(), hero.getBirthday(),
+									hero.getAge(), hero.isGender(), hero.getHeroId());
+		return rowNumber;
 	}
 
 	// Userテーブルを1件削除

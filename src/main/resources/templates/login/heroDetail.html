@@ -22,7 +22,7 @@
 							<!-- パスワード -->
 							<tr>
 								<th class="active col-sm-2">パスワード</th>
-								<td>
+								<td class="col-sm-3">
 									<div class="form-group" th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
 										<input type="text" class="form-control" th:field="*{password}">
 										<span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
@@ -39,6 +39,18 @@
 										<input type="text" class="form-control" th:field="*{heroName}">
 										<span class="text-danger" th:if="${#fields.hasErrors('heroName')}" th:errors="*{heroName}">
 											heroName error
+										</span>
+									</div>
+								</td>
+							</tr>
+							<!-- 名前 -->
+							<tr>
+								<th class="active col-sm-2">名前</th>
+								<td class="col-sm-3">
+									<div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'has-error'">
+										<input type="text" class="form-control" th:field="*{name}">
+										<span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+											name error
 										</span>
 									</div>
 								</td>
