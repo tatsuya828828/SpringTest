@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<head><meta charset="UTF-8"></head>
+	<body>
+		<!-- コンテンツ部分 -->
+		<div th:fragment="heroList_contents">
+			<div class="page-header">
+				<h1>ユーザー一覧</h1>
+			</div>
+			<table class="table table-bordered table-hover table-striped">
+				<tr>
+					<th class="info col-sm-2">ヒーローID</th>
+					<th class="info col-sm-2">ヒーロー名</th>
+					<th class="info col-sm-2">名前</th>
+					<th class="info col-sm-2">誕生日</th>
+					<th class="info col-sm-1">年齢</th>
+					<th class="info col-sm-1">性別</th>
+					<th class="info col-sm-2"></th>
+				</tr>
+				<tr th:each="hero: ${heroList}">
+					<td th:text="${hero.heroId}"></td>
+					<td th:text="${hero.heroName}"></td>
+					<td th:text="${hero.name}"></td>
+					<!-- 画面上に表示する日付型のフォーマットを指定するには、#dates.format()メソッドを使う
+						第1引数にフォーマットする値、第2引数にフォーマットを指定する -->
+					<td th:text="${#dates.format(hero.birthday, 'YYYY/MM/dd')}"></td>
+					<td th:text="${hero.age}"></td>
+					<td th:text="${hero.gender} ? '男性':'女性'"></td>
+					<!-- ヒーローごとに動的にページを変更 -->
+					<td>
+						<a class="btn btn-primary" th:href="@{'/heroDetail/' + ${hero.heroId}}">詳細</a>
+					</td>
+				</tr>
+			</table>
+			<!-- ヒーロー一覧の件数 -->
+			<label th:text="'合計:'+ ${heroListCount} +'件'"></label>
+			<br>
+			<!-- 更新・削除処理の結果表示 -->
+			<label class="text-info" th:text="${result}">結果表示</label>
+			<!-- CSV出力のリンク -->
+			<a class="btn btn-primary" th:href="@{'/userList/csv}">CSV出力</a>
+		</div>
+	</body>
+</html>
