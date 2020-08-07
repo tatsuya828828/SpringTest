@@ -43,6 +43,7 @@ public class HeroDaoJdbcImpl implements HeroDao {
 	}
 
 	// Heroテーブルのデータを1件取得
+	@Override
 	public Hero selectOne(String heroId) throws DataAccessException {
 		/* 1件のレコードを取得するには、queryForMapメソッドを使う
 		 * 戻り値は、Map<String, Object>型

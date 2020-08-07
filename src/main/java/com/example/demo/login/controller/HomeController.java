@@ -26,7 +26,7 @@ public class HomeController {
 	// 性別ステータスのラジオボタン用変数
 	private Map<String, String> radioGender;
 	// ラジオボタンの初期化メソッド
-	private Map<String, String> initRadioGender(){
+	private Map<String, String> initRadioGender() {
 		Map<String, String> radio = new LinkedHashMap<>();
 		// 男性、女性をMapに格納
 		radio.put("男性", "true");
