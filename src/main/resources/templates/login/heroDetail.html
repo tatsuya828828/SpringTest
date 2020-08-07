@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<head><meta charset="UTF-8"></head>
+	<body>
+		<div th:fragment="heroDetail_contents">
+			<div class="row">
+				<div class="col-sm-5">
+					<div class="page-header">
+						<h1>ヒーロー詳細</h1>
+					</div>
+					<form method="post" th:action="@{/heroDetail}" th:object="${signupForm}">
+						<table>
+							<!-- ヒーローID(編集不可) -->
+							<tr>
+								<th class="active col-sm-2">ヒーローID</th>
+								<td class="col-sm-3">
+									<div class="form-group">
+										<input type="text" class="form-control" th:field="*{heroId}" readonly="readonly">
+									</div>
+								</td>
+							</tr>
+							<!-- パスワード -->
+							<tr>
+								<th class="active col-sm-2">パスワード</th>
+								<td>
+									<div class="form-group" th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
+										<input type="text" class="form-control" th:field="*{password}">
+										<span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+											password error
+										</span>
+									</div>
+								</td>
+							<tr>
+							<!-- ヒーロー名 -->
+							<tr>
+								<th class="active col-sm-2">ヒーロー名</th>
+								<td class="col-sm-3">
+									<div class="form-group" th:classappend="${#fields.hasErrors('heroName')} ? 'has-error'">
+										<input type="text" class="form-control" th:field="*{heroName}">
+										<span class="text-danger" th:if="${#fields.hasErrors('heroName')}" th:errors="*{heroName}">
+											heroName error
+										</span>
+									</div>
+								</td>
+							</tr>
+							<!-- 誕生日 -->
+							<tr>
+								<th class="active col-sm-2">誕生日</th>
+								<td class="col-sm-3">
+									<div class="form-group" th:classappend="${#fields.hasErrors('birthday')} ? 'has-error'">
+										<input type="text" class="form-control" placeholder="yyyy/MM/dd" th:field="*{birthday}">
+										<span class="text-danger" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">
+											birthday error
+										</span>
+									</div>
+								</td>
+							</tr>
+							<!-- 年齢 -->
+							<tr>
+								<th class="active col-sm-2">年齢</th>
+								<td class="col-sm-3">
+									<div class="form-group" th:classappend="${#fields.hasErrors('age')} ? 'has-error'">
+										<input type="text" class="form-control" th:field="*{age}">
+										<span class="text-danger" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">
+											age error
+										</span>
+									</div>
+								</td>
+							</tr>
+							<!-- 性別 -->
+							<tr>
+								<th class="active col-sm-2">性別</th>
+								<td class="col-sm-3">
+									<div class="form-group">
+										<div th:each="item: ${radioGender}">
+											<input type="radio" name="radioGender" th:value="${item.value}" th:text="${item.key}" th:field="*{gender}">
+										</div>
+										<span class="text-danger" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">
+											gender error
+										</span>
+									</div>
+								</td>
+							</tr>
+						</table>
+						<!-- 更新ボタン -->
+						<button class="btn btn-primary btn-lg pull-right" type="submit" name="update">
+							更新
+						</button>
+						<!-- 削除ボタン -->
+						<button class="btn btn-danger btn-lg" type="submit" name="delete">
+							削除
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
