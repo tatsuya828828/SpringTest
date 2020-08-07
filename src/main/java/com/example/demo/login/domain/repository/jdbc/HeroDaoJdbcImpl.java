@@ -44,7 +44,19 @@ public class HeroDaoJdbcImpl implements HeroDao {
 
 	// Heroテーブルのデータを1件取得
 	public Hero selectOne(String heroId) throws DataAccessException {
-		return null;
+		Map<String, Object> map = jdbc.queryForMap("SELECT * FROM m_hero"+" WHERE hero_id = ?", heroId);
+		// 結果返却用の変数
+		Hero hero = new Hero();
+		// 取得したデータを結果返却用の変数にセットしていく
+		hero.setHeroId((String) map.get("hero_id"));
+		hero.setPassword((String) map.get("password"));
+		hero.setHeroName((String) map.get("hero_name"));
+		hero.setName((String) map.get("name"));
+		hero.setBirthday((Date) map.get("birthday"));
+		hero.setAge((Integer) map.get("age"));
+		hero.setGender((Boolean) map.get("gender"));
+		hero.setRole((String) map.get("map"));
+		return hero;
 	}
 
 	// Heroテーブルの全データを取得
