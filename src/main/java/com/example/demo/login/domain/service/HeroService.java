@@ -56,4 +56,17 @@ public class HeroService {
 		}
 		return result;
 	}
+
+	// 1件削除
+	public boolean deleteOne(String heroId) {
+		// 1件削除
+		int rowNumber = dao.deleteOne(heroId);
+		// 判定用変数
+		boolean result = false;
+		if(rowNumber>0) {
+			// delete成功
+			result = true;
+		}
+		return result;
+	}
 }
