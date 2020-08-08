@@ -113,7 +113,9 @@ public class HeroDaoJdbcImpl implements HeroDao {
 	// Userテーブルを1件削除
 	@Override
 	public int deleteOne(String heroId) throws DataAccessException {
-		return 0;
+		// 1件削除
+		int rowNumber = jdbc.update("DELETE FROM m_hero WHERE hero_id = ?", heroId);
+		return rowNumber;
 	}
 
 	// Heroテーブルの前データをCSVに出力する
