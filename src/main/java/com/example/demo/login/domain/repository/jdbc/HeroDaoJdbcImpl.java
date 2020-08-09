@@ -14,7 +14,7 @@ import com.example.demo.login.domain.model.Hero;
 import com.example.demo.login.domain.repository.HeroDao;
 
 // インタフェースを実装したリポジトリークラス
-@Repository
+@Repository("HeroDaoJdbcImpl")
 public class HeroDaoJdbcImpl implements HeroDao {
 	// JdbcTemplateはSpringが用意してくれているため、既にBean定義がされている
 	// そのため、@Autowiredするだけで使えるようになる
