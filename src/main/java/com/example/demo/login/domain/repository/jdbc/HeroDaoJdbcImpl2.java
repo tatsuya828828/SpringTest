@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.login.domain.model.Hero;
 
+// RowMapperを使ったリポジトリークラス
 @Repository("HeroDaoJdbcImpl2")
 // HeroDaoJdbcImplを継承することで、select文を実行する箇所だけRowMapperに変えて、insert文やupdate文はHeroDaoJdbcImplを同じ動きをする
 public class HeroDaoJdbcImpl2 extends HeroDaoJdbcImpl {
