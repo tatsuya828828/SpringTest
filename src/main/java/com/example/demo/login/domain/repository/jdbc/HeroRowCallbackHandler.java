@@ -28,7 +28,7 @@ public class HeroRowCallbackHandler implements RowCallbackHandler {
 			do {
 				// ResultSetから値を取得してStringにセット
 				String str = rs.getString("hero_id") +","+ rs.getString("password") +","
-							+ rs.getString("hero_name")+","+ rs.getString("name") +","+ rs.getDate("biryhday")
+							+ rs.getString("hero_name")+","+ rs.getString("name") +","+ rs.getDate("birthday")
 							+ "," + rs.getInt("age")  +","+ rs.getBoolean("gender") +","+ rs.getString("role");
 				// ファイルに書き込み&改行
 				bw.write(str);
