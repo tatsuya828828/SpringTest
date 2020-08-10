@@ -18,7 +18,7 @@ import com.example.demo.login.domain.repository.HeroDao;
 @Service
 public class HeroService {
 	@Autowired
-	@Qualifier("HeroDaoJdbcImpl")
+	@Qualifier("HeroDaoNamedJdbcImpl")
 	HeroDao dao;
 
 	// サービスクラスのinsertメソッドで、リポジトリークラスのinsertOneメソッドを呼び出している
