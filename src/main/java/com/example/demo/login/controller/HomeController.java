@@ -1,10 +1,14 @@
 package com.example.demo.login.controller;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -141,8 +145,23 @@ public class HomeController {
 
 	// ユーザー一覧のCSV出力用メソッド
 	@GetMapping("/heroList/csv")
-	public String getHeroListCsv(Model model) {
-		// 現段階では、何もせずにヒーロー一覧画面に戻るだけ
-		return getHeroList(model);
+	public ResponseEntity<byte[]> getHeroListCsv(Model model) {
+		// ヒーローを全件取得して、CSVをサーバーに保存する
+		heroService.heroCsvOut();
+		byte[] bytes = null;
+		try {
+			// サーバーに保存されている、sample.csvファイルをbyteで取得する
+			bytes = heroService.getFile("sample.csv");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		// HTTPヘッダーの設定
+		HttpHeaders header = new HttpHeaders();
+		header.add("Content-Type", "text/csv; charset=UTF-8");
+		header.setContentDispositionFormData("filename", "sample.csv");
+
+		// sample.csvを戻す
+		return new ResponseEntity<>(bytes, header, HttpStatus.OK);
 	}
 }

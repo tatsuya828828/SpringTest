@@ -121,5 +121,11 @@ public class HeroDaoJdbcImpl implements HeroDao {
 	// Heroテーブルの前データをCSVに出力する
 	@Override
 	public void heroCsvOut() throws DataAccessException {
+		// M_HEROテーブルのデータを全件取得するSQL
+		String sql = "SELECT * FROM m_hero";
+		// ResultSetExtractorの生成
+		HeroRowCallbackHandler handler = new HeroRowCallbackHandler();
+		// SQL実行&CSV出力
+		jdbc.query(sql, handler);
 	}
 }
