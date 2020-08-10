@@ -113,7 +113,7 @@ public class HeroDaoNamedJdbcImpl implements HeroDao {
 	public int updateOne(Hero hero) {
 		// SQL文
 		String sql = "UPDATE M_HERO"+" SET "+"password = :password, "+"hero_name = :heroName, "+"name = :name, "
-					+"birthday = :birthday, "+"age = :age, "+"gender = :gender, "+"WHERE hero_id = :heroId";
+					+"birthday = :birthday, "+"age = :age, "+"gender = :gender "+"WHERE hero_id = :heroId";
 		// パラメータ
 		SqlParameterSource params = new MapSqlParameterSource().addValue("heroId", hero.getHeroId()).addValue("password", hero.getPassword())
 									.addValue("heroName", hero.getHeroName()).addValue("name", hero.getName()).addValue("birthday", hero.getBirthday())
