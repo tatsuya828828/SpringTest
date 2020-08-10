@@ -20,6 +20,13 @@ public class HeroDaoJdbcImpl3 extends HeroDaoJdbcImpl {
 		// 1件取得用SQL
 		String sql = "SELECT * FROM m_hero WHERE hero_id = ?";
 		// RowMapperの生成
+		/* BeanPropertyRowMapperでは、データベースから取得してきたカラム名と同一のフィールド名がクラスにあれば、自動でマッピングをしてくれる
+		 * つまり、RowMapperのようにどのカラムとどのフィールドを一致させるか、いちいち用意する必要がない
+		 * ただし、自動でマッピングするためには、
+		 * カラム名は単語ごとに_で区切る、フィールド名は、2つ目の単語から大文字にする
+		 * といった形式にする必要がある
+		 * もし、カラム名とフィールド名が一致する場合はBeanPropertyRowMapperを使うと便利である
+		 */
 		RowMapper<Hero> rowMapper = new BeanPropertyRowMapper<Hero>(Hero.class);
 		// SQL実行
 		return jdbc.queryForObject(sql, rowMapper, heroId);
