@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -110,12 +111,16 @@ public class HomeController {
 		hero.setBirthday(form.getBirthday());
 		hero.setAge(form.getAge());
 		hero.setGender(form.isGender());
-		// 更新実行
-		boolean result = heroService.updateOne(hero);
-		if(result == true) {
-			model.addAttribute("result", "更新成功");
-		} else {
-			model.addAttribute("result", "更新失敗");
+		try {
+			// 更新実行
+			boolean result = heroService.updateOne(hero);
+			if(result == true) {
+				model.addAttribute("result", "更新成功");
+			} else {
+				model.addAttribute("result", "更新失敗");
+			}
+		} catch(DataAccessException e) {
+			model.addAttribute("result", "更新失敗(トランザクションテスト)");
 		}
 		// ヒーロー一覧画面を表示
 		return getHeroList(model);
