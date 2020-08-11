@@ -11,14 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.login.domain.model.Hero;
 import com.example.demo.login.domain.repository.HeroDao;
 
+@Transactional
 @Service
 public class HeroService {
 	@Autowired
-	@Qualifier("HeroDaoNamedJdbcImpl")
+	@Qualifier("HeroDaoJdbcImpl")
 	HeroDao dao;
 
 	// サービスクラスのinsertメソッドで、リポジトリークラスのinsertOneメソッドを呼び出している
