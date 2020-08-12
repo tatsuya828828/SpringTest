@@ -11,13 +11,18 @@
 	<body class="text-center" style="padding-top: 30vh;">
 		<h1>Login</h1>
 		<form method="post" action="/login">
+			<!-- エラーメッセージ  -->
+			<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
+				th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" class="text-danger">
+				ログインエラーメッセージ
+			</p>
 			<!-- ヒーローID -->
 			<label>ヒーローID</label>
-			<input type="text">
+			<input type="text" name="heroId">
 			<br>
 			<!-- パスワード -->
 			<label>パスワード</label>
-			<input type="password">
+			<input type="password" name="password">
 			<br>
 			<!-- ログインボタン -->
 			<button class="btn btn-primary" type="submit">ログイン</button>
