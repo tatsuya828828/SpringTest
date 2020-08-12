@@ -1,6 +1,10 @@
 package com.example.demo;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -14,6 +18,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	// データソース
+	@Autowired
+	private DataSource dataSource;
+
+	// ヒーローIDとパスワードを取得するSQL
+	private static final String HERO_SQL = "SELECT"+" hero_id, "+"password, "+"true "+"FROM "+"m_hero "+"WHERE "+"hero_id = ?";
+	// ヒーローのロールを取得するSQL文
+	private static final String ROLE_SQL = "SELECT"+" hero_id, "+"role "+"FROM "+"m_hero "+"WHERE "+"hero_id = ?";
+
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		// 静的リソースを除外
@@ -43,5 +56,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						.defaultSuccessUrl("/home", true); // ログイン成功後の遷移先
 		// CSRF対策を無効に設定
 		http.csrf().disable();
+	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		// ヒーローデータの取得
+		// ログイン処理時のヒーロー情報を、DBから取得する
+		auth.jdbcAuthentication().dataSource(dataSource)
+		.usersByUsernameQuery(HERO_SQL).authoritiesByUsernameQuery(ROLE_SQL);
 	}
 }
