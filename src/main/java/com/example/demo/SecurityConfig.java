@@ -61,6 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/css/**").permitAll() // cssへアクセス許可
 		.antMatchers("/login").permitAll() // ログインページは直リンクOK
 		.antMatchers("/signup").permitAll() // ヒーロー登録画面は直リンクOK
+		// Springでは、ロール名の先頭にROLE_をつけるというルールがある
+		.antMatchers("/admin").hasAuthority("ROLE_ADMIN") // /adminは、ROLE_ADMINのヒーローのみアクセス可
 		.anyRequest().authenticated(); // それ以外は直リンク禁止
 		// ログイン処理
 		http.formLogin().loginProcessingUrl("/login") // ログイン処理のパス
