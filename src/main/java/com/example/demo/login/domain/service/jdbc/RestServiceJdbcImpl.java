@@ -21,7 +21,12 @@ public class RestServiceJdbcImpl implements RestService {
 	// 1件登録用メソッド
 	@Override
 	public boolean insert(Hero hero) {
-		return false;
+		int result = dao.insertOne(hero);
+		if(result == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	// 1件検索用メソッド
