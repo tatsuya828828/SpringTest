@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.login.domain.model.Hero;
@@ -30,5 +32,21 @@ public class HeroRestController {
 	public Hero getHeroOne(@PathVariable("id") String heroId) {
 		// ユーザー1件取得
 		return service.selectOne(heroId);
+	}
+
+	// ヒーローを1件登録
+	@PostMapping("/rest/insert")
+	// ＠RequestBodyアノテーションを使うと、HTTPリクエストのボディ部分を引数にマッピングしてくれる
+	// こうすることで、POSTメソッドでもヒーロー情報を受け取ることができる
+	public String postHeroOne(@RequestBody Hero hero) {
+		boolean result = service.insert(hero);
+		String str = "";
+		if(result == true) {
+			str = "{\"result\":\"ok\"}";
+		} else {
+			str = "{\"result\":\"error\"}";
+		}
+		// 結果の文字列をリターン
+		return str;
 	}
 }
