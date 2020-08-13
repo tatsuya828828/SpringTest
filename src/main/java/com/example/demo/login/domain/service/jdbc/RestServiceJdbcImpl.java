@@ -26,12 +26,12 @@ public class RestServiceJdbcImpl implements RestService {
 
 	// 1件検索用メソッド
 	public Hero selectOne(String heroId) {
-		return null;
+		return dao.selectOne(heroId);
 	}
 
 	// 全権検索用メソッド
 	public List<Hero> selectMany() {
-		return null;
+		return dao.selectMany();
 	}
 
 	// 1件更新用メソッド
