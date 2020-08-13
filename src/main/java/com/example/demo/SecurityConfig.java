@@ -3,12 +3,15 @@ package com.example.demo;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 //セキュリティ設定用クラス
 //セキュリティ設定用クラスには、@EnableWebSecurityをつける
@@ -18,6 +21,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	// パスワードエンコーダーのBean定義
+	/*	パスワードを暗号化したり復号するインタフェースとして、PasswordEncoderと言うインタフェースがSpringで用意されている
+		そのPasswordEncoderを実装した、BCryπtPasswordEncoderのインスタンスを返すBean定義をしている
+		Bean定義しているのは、ユーザー登録のリポジトリークラスなどで使う(Autowired)からである
+		PasswordEncoderを実装したクラスは、 BCryptPasswordEncoder以外にもいくつかある
+		暗号化のアルゴリズムによって、実装クラスが分かれている
+	 */
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 	// データソース
 	@Autowired
 	private DataSource dataSource;
@@ -63,6 +77,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// ヒーローデータの取得
 		// ログイン処理時のヒーロー情報を、DBから取得する
 		auth.jdbcAuthentication().dataSource(dataSource)
-		.usersByUsernameQuery(HERO_SQL).authoritiesByUsernameQuery(ROLE_SQL);
+		.usersByUsernameQuery(HERO_SQL).authoritiesByUsernameQuery(ROLE_SQL)
+		// ログイン時のパスワード復号
+		// ログイン処理の際に、パスワードを復号するために、PasswordEncoderメソッドにBean定義したPasswordEncoderする
+		// これで、ログイン時にパスワードをSpringが復号する
+		.passwordEncoder(passwordEncoder());
 	}
 }
