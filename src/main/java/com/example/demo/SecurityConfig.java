@@ -72,8 +72,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// ログアウト処理
 		http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 		.logoutUrl("/logout").logoutSuccessUrl("/login");
-		// CSRF対策を無効に設定
-		http.csrf().disable();
+		// CSRF対策を無効に設定する処理
+		// http.csrf().disable();
 	}
 
 	@Override
