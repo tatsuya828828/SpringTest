@@ -12,7 +12,7 @@ public interface RestService {
 	// 全権検索用メソッド
 	public List<Hero> selectMany();
 	// 1件更新用メソッド
-	public boolean update(Hero hero);
+	public boolean updateOne(Hero hero);
 	// 1件削除用メソッド
 	public boolean delete(String heroId);
 }
