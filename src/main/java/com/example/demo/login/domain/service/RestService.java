@@ -14,5 +14,5 @@ public interface RestService {
 	// 1件更新用メソッド
 	public boolean updateOne(Hero hero);
 	// 1件削除用メソッド
-	public boolean delete(String heroId);
+	public boolean deleteOne(String heroId);
 }
