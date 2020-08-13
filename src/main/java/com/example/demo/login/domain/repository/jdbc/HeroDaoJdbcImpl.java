@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.login.domain.model.Hero;
@@ -19,9 +20,10 @@ public class HeroDaoJdbcImpl implements HeroDao {
 	// JdbcTemplateはSpringが用意してくれているため、既にBean定義がされている
 	// そのため、@Autowiredするだけで使えるようになる
 	// このクラスのメソッドを使って、SQLを実行していく
-
 	@Autowired
 	JdbcTemplate jdbc;
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	// Heroテーブルの件数を取得
 	@Override
@@ -34,10 +36,12 @@ public class HeroDaoJdbcImpl implements HeroDao {
 	// Heroテーブルのデータを1件取得
 	@Override
 	public int insertOne(Hero hero) throws DataAccessException {
+		// パスワード暗号化
+		String password = passwordEncoder.encode(hero.getPassword());
 		// DBにデータを1件登録
 		int rowNumber = jdbc.update("INSERT INTO m_hero(hero_id, "+"password, "+"hero_name, "+"name, "+"birthday, "
 									+"age, "+"gender, "+"role)"+" VALUES(?,?,?,?,?,?,?,?)"
-									, hero.getHeroId(), hero.getPassword(), hero.getHeroName(), hero.getName()
+									, hero.getHeroId(), password, hero.getHeroName(), hero.getName()
 									, hero.getBirthday(), hero.getAge(), hero.isGender(), hero.getRole());
 		return rowNumber;
 	}
@@ -102,10 +106,12 @@ public class HeroDaoJdbcImpl implements HeroDao {
 	// Heroテーブルのデータを1件更新
 	@Override
 	public int updateOne(Hero hero) throws DataAccessException {
+		// パスワード暗号化
+		String password = passwordEncoder.encode(hero.getPassword());
 		// 1件更新
 		int rowNumber = jdbc.update("UPDATE M_HERO"+" SET"+" password=?, "+"hero_name=?, "+"name=?, "+"birthday=?, "
 									+"age=?, "+"gender=? "+"WHERE hero_id=?",
-									hero.getPassword(), hero.getHeroName(), hero.getName(), hero.getBirthday(),
+									password, hero.getHeroName(), hero.getName(), hero.getBirthday(),
 									hero.getAge(), hero.isGender(), hero.getHeroId());
 //		トランザクション確認のため、わざと例外をthrowする
 //		if(rowNumber>0) {
