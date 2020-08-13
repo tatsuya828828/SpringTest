@@ -53,6 +53,11 @@ public class RestServiceJdbcImpl implements RestService {
 	// 1件削除用メソッド
 	@Override
 	public boolean delete(String heroId) {
-		return false;
+		int result = dao.deleteOne(heroId);
+		if(result == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }
