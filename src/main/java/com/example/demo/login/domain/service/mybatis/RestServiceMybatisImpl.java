@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.login.domain.model.Hero;
-import com.example.demo.login.domain.repository.mybatis.HeroMapper;
+import com.example.demo.login.domain.repository.mybatis.HeroMapper2;
 import com.example.demo.login.domain.service.RestService;
 
 @Transactional
 @Service("RestServiceMybatisImpl")
 public class RestServiceMybatisImpl implements RestService {
 	@Autowired
-	HeroMapper heroMapper;
+	HeroMapper2 heroMapper;
 
 	@Override
 	public boolean insert(Hero hero) {
