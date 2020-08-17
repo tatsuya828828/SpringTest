@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- クラス指定 -->
+<mapper>
+	<!-- このxmlとそれに対応するクラス(HeroMapper2java)は同じ階層構造にしてあるため、
+		 mapperタグだけで紐付けがされる
+		 もしも、クラスめいとxmlで異なる階層構造にしたい場合は
+		 <mapper namespace="com.example.demo.login.domain.repository.mybatis.HeroMapper2>
+		 のようにnamespace属性を用いて指定する -->
+	<!-- マッピング定義
+		 独自に作成したクラスをSelect結果が一致しない場合、マッピング定義を使う
+		 マッピング定義を使用する場合には、まず、マッピング定義を作背うする
+		 これは、selectの取得結果とJavaクラスを紐づけるということ
+		 まずは Javaのどのクラスと紐づけるのかを
+		 <resultMap type="クラス名" id="マッピング名">
+		 のように指定する、idには、SQLと紐づけるための名前を設定しておく
+		  -->
+	<resultMap type="com.example.demo.login.domain.model.Hero" id="hero">
+		<!-- <id column="カラム名" property="Javaクラスのフィールド名">
+			 idタグには通常、主キーを指定する
+			 idタグに指定した値が異なる分だけ、Javaクラスのインスタンスが作られる
+			 columnにはselect結果のカラム、propertyにはクラスのフィールド名を指定する
+			 select結果のhero_idカラムの値が、HeroクラスのheroIdフィールドに入れられることになる
+			 そして、hero_idの値が異なる行数の分だけ、Heroクラスのインスタンスが作られる -->
+		<id column="hero_id" property="heroId"></id>
+		<!-- <result column"カラム名" property="Javaクラスのフィールド名">
+			 idタグと同様に、カラム名とフィールドを指定する
+			 idタグと異なるのは、ここで指定されたカラムの値が異なっても、インスタンスは作られないということ -->
+		<result column="password" property="password"></result>
+		<result column="hero_name" property="heroName"></result>
+		<result column="name" property="name"></result>
+		<result column="birthday" property="birthday"></result>
+		<result column="age" property="age"></result>
+		<result column="gender" property="gender"></result>
+		<result column="role" property="role"></result>
+	</resultMap>
+
+	<!-- メソッドとの紐付け
+		 どのようなSQLを実行するかによってタグを指定するため
+		 insert文を実行するならinsertタグ、select文ならselectタグといったように指定する
+		 また、そのタグにidをつける、このid属性に、Javaのメソッド名を指定する
+		 これにより、xml内のSQLとJavaのメソッドが紐付けられる-->
+	<!-- 1件insert -->
+	<!-- Javaのメソッドから渡されたパラメーターをSQLに渡すには、parameterType属性をつける
+		 parameterType属性には、Javaメソッドの引数の方を指定する
+		 そして、SQL文に#{変数名}でパラメータをSQLに埋め込むことができる
+		 intやbooleanなどの基本型の場合は、パッケージ名はつけずにintやbooleanなどのように指定する -->
+	<insert id="insert" parameterType="com.example.demo.login.domain.model.Hero">
+		INSERT INTO m_hero(hero_id, password, hero_name, name, birthday, age, gender, role)
+		VALUES(#{heroId}, #{password}, #{heroName}, #{name}, #{birthday}, #{age}, #{gender}, #{role})
+	</insert>
+
+	<!-- 1件検索 -->
+	<!-- SQLの結果を受け取る場合、resultType属性を使う
+		 select結果は、自動的にHeroクラスにマッピングされる -->
+	<select id="selectOne" parameterType="string" resultType="com.example.demo.login.domain.model.Hero">
+		SELECT hero_id, password, hero_name, name, birthday, age, gender, role
+		FROM m_hero WHERE hero_id = #{heroId}
+	</select>
+
+	<!-- 全件検索・マッピング定義-->
+	<select id="selectMany" resultMap="hero">
+		SELECT hero_id, password, hero_name, birthday, age, gender, role FROM m_hero
+	</select>
+
+	<!-- 1件更新 -->
+	<update id="updateOne" parameterType="com.example.demo.login.domain.model.Hero">
+		UPDATE m_hero SET password = #{password}, hero_name = #{heroName}, name = #{name}
+		birthday = #{birthday}, age = #{age}, gender = #{gender} WHERE hero_id = #{heroId}
+	</update>
+
+	<!-- 1件削除 -->
+	<delete id="deleteOne" parameterType="string">
+		DELETE FROM m_hero WHERE hero_id = #{heroId}
+	</delete>
+</mapper>
